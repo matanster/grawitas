@@ -60,12 +60,21 @@ int main(int argc, char** argv)
 
 
 	try {
+		std::cout << "Hallo" << std::endl;
 		// the actual parsing part of the program; starts by reading from a file
 		timings.startTiming("parsing", "Splitting talk page into comments");
 		ParsedTalkPage parsedTalkPage;
 		if(options.count("input-talk-page-file"))
 		{
+			std::cout << "Halloinput" << std::endl;
 			std::ifstream wiki_input_file(options["input-talk-page-file"].as<string>());
+			if (!wiki_input_file.is_open())
+			{
+				std::cerr << "Could not open input file. Aborting." << std::endl;
+				std::cin.get();
+				return 1;
+			}
+
 			parsedTalkPage = parse_talk_page(wiki_input_file);	
 		}
 		timings.stopTiming("parsing");
@@ -79,6 +88,7 @@ int main(int argc, char** argv)
 		}
 		output_in_formats_to_files(formats, parsedTalkPage);
 		timings.stopTiming("output");
+		std::cout << "Hallo" << std::endl;
 	}
 	catch(const std::exception& exception) {
 		std::cerr << "--------------------------------------------------" << std::endl;
@@ -97,5 +107,6 @@ int main(int argc, char** argv)
 		std::cout << std::endl;
 	}
 
+	std::cin.get();
 	return 0;
 }

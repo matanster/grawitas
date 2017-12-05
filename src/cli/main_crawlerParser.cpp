@@ -101,6 +101,7 @@ int main(int argc, char** argv)
 	QObject::connect(&task, &CrawlerTask::finished, &QCoreApplication::quit);
 
 	// This will run the task from the application event loop.
+	
 	QTimer::singleShot(0, &task, &CrawlerTask::run);
 
 	return a.exec();
